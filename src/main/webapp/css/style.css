@@ -1,0 +1,100 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    color: black;
+    font-weight: 600;
+}
+
+#wrapper {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Main Page */
+
+#main {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    margin-bottom: 5%;
+}
+
+ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    margin: 5px;
+    padding: 10px;
+    border: 3px solid black;
+}
+
+a:hover {
+    background-color: rgba(0, 0, 255, 0.1);
+}
+
+/* New Match Page */
+
+#new-match-wrapper {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#new-match-header {
+    margin: 2rem;
+}
+
+#new-match-main form {
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    border: 3px solid black;
+    padding: 1rem;
+}
+
+#new-match-main form {
+    display: flex;
+    flex-direction: column;
+    border: 3px solid black;
+    padding: 1rem;
+}
+
+#new-match-main form input{
+    margin-bottom: 1rem;
+}
+
+#new-match-main form label{
+    margin-bottom: 0.2rem;
+}
+
+#new-match-main form .form-button{
+    border: 3px solid black;
+    margin: 5px;
+    padding: 10px;
+}
+
+#new-match-main form .form-button:hover{
+    background-color: rgba(0, 0, 255, 0.1);
+}
