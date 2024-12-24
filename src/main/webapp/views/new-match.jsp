@@ -21,15 +21,17 @@
         <h1>New Match</h1>
     </header>
     <main id="new-match-main">
-        <form method="post">
+        <form id="new-match-form" method="post">
+            <p id="new-match-form-error" style="color: red; display: none">Sample error message</p>
             <label for="playerOne">Player one</label>
-            <input id="playerOne" name="playerOne" placeholder="Name" type="text"  required title="Enter a name">
+            <input id="playerOne" name="playerOne" placeholder="Name" type="text" required title="Enter a name">
             <label for="playerTwo">Player two</label>
             <input id="playerTwo" name="playerTwo" placeholder="Name" type="text" required title="Enter a name">
             <input class="form-button" type="submit" value="Start">
         </form>
     </main>
 </div>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/script.js"></script>
 </body>
 
 </html>
