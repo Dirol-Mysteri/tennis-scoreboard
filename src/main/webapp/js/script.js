@@ -39,9 +39,9 @@ async function handleSubmit() {
         });
         const jsonResponse = await response.json();
 
-        // if (response.status === 409) {
-        //     showError(jsonResponse.message);
-        // }
+        if (response.status === 409) {
+            showError(jsonResponse.message);
+        }
 
         if (response.status === 200) {
             let url = "/match-score?uuid=" + jsonResponse.matchId;

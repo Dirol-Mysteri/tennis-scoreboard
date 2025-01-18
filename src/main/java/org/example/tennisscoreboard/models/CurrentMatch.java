@@ -1,5 +1,6 @@
 package org.example.tennisscoreboard.models;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class CurrentMatch {
@@ -41,5 +42,27 @@ public class CurrentMatch {
     public void updateScore(int playerOneScore, int playerTwoScore) {
         score.setPlayerOneScore(playerOneScore);
         score.setPlayerTwoScore(playerTwoScore);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        CurrentMatch that = (CurrentMatch) o;
+        return Objects.equals(playerOneId, that.playerOneId) && Objects.equals(playerTwoId, that.playerTwoId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(playerOneId, playerTwoId);
+    }
+
+    @Override
+    public String toString() {
+        return "CurrentMatch{" +
+                "matchId=" + matchId +
+                ", playerOneId=" + playerOneId +
+                ", playerTwoId=" + playerTwoId +
+                ", score=" + score +
+                '}';
     }
 }

@@ -25,5 +25,4 @@ public class PlayerRepository extends BaseRepository<Long, Player> {
             return Optional.empty();
         }
     }
-
 }

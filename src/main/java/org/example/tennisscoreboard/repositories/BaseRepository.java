@@ -1,11 +1,7 @@
 package org.example.tennisscoreboard.repositories;
 
 import org.example.tennisscoreboard.commons.HibernateUtil;
-import org.example.tennisscoreboard.exceptions.UniqueConstraintException;
-import org.example.tennisscoreboard.models.Player;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.exception.ConstraintViolationException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -22,11 +18,8 @@ public abstract class BaseRepository<K extends Serializable, E> implements Repos
 //    @Override
 //    public E save(E entity) {
 //        try {
-//            Session session = HibernateUtil.getSession();
-//            var transaction = session.beginTransaction();
+//            Session session = HibernateUtil.getCurrentSession();
 //            session.persist(entity);
-//            transaction.commit();
-//            session.close();
 //        } catch (ConstraintViolationException e) {
 //            if (e.getKind() == ConstraintViolationException.ConstraintKind.UNIQUE) {
 //                if (entity instanceof Player) {
@@ -40,17 +33,8 @@ public abstract class BaseRepository<K extends Serializable, E> implements Repos
 
     @Override
     public E save(E entity) {
-        try {
-            Session session = HibernateUtil.getCurrentSession();
-            session.persist(entity);
-        } catch (ConstraintViolationException e) {
-            if (e.getKind() == ConstraintViolationException.ConstraintKind.UNIQUE) {
-                if (entity instanceof Player) {
-                    String playerName = ((Player) entity).getName();
-                    throw new UniqueConstraintException("Player with name " + playerName + " already exists in the database");
-                }
-            }
-        }
+        Session session = HibernateUtil.getCurrentSession();
+        session.persist(entity);
         return entity;
     }
 
