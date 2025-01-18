@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>New Match</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 
@@ -21,7 +21,7 @@
         <h1>New Match</h1>
     </header>
     <main id="new-match-main">
-        <form id="new-match-form" method="post">
+        <form id="new-match-form" method="POST">
             <p id="new-match-form-error" style="color: red; display: none">Sample error message</p>
             <label for="playerOne">Player one</label>
             <input id="playerOne" name="playerOne" placeholder="Name" type="text" required title="Enter a name">

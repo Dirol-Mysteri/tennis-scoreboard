@@ -2,6 +2,8 @@ package org.example.tennisscoreboard.models;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
@@ -9,7 +11,7 @@ import static jakarta.persistence.FetchType.LAZY;
 public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "Player1", nullable = false)
@@ -20,8 +22,22 @@ public class Match {
     private Player Player2;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "Winner", nullable = false)
+    @JoinColumn(name = "Winner")
     private Player Winner;
+
+    public Match() {
+    }
+
+    public Match(Long id, Player player1, Player player2, Player winner) {
+        this.id = id;
+        Player1 = player1;
+        Player2 = player2;
+        Winner = winner;
+    }
+
+    public Long getId() {
+        return id;
+    }
 
     public Player getPlayer1() {
         return Player1;
@@ -45,6 +61,18 @@ public class Match {
 
     public void setWinner(Player winner) {
         Winner = winner;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Match match = (Match) o;
+        return id == match.id && Objects.equals(Player1, match.Player1) && Objects.equals(Player2, match.Player2);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, Player1, Player2);
     }
 
     @Override

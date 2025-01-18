@@ -1,11 +1,15 @@
 package org.example.tennisscoreboard.commons;
 
+import org.example.tennisscoreboard.models.Match;
+import org.example.tennisscoreboard.models.Player;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.lang.reflect.Proxy;
+
 import static org.hibernate.cfg.JdbcSettings.*;
-import static org.hibernate.cfg.SchemaToolingSettings.JAKARTA_HBM2DDL_DATABASE_ACTION;
+import static org.hibernate.cfg.SchemaToolingSettings.HBM2DDL_AUTO;
 
 public class HibernateUtil {
     private static SessionFactory sessionFactory;
@@ -13,9 +17,13 @@ public class HibernateUtil {
     static {
         try {
             sessionFactory = new Configuration()
-                    .setProperty(JAKARTA_JDBC_URL, "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1")
+                    .addAnnotatedClass(Player.class)
+                    .addAnnotatedClass(Match.class)
+                    .setProperty("hibernate.current_session_context_class", "thread")
+                    .setProperty(JAKARTA_JDBC_DRIVER, "org.h2.Driver")
+                    .setProperty(JAKARTA_JDBC_URL, "jdbc:h2:mem:testdb")
                     .setProperty(DIALECT, "org.hibernate.dialect.H2Dialect")
-                    .setProperty(JAKARTA_HBM2DDL_DATABASE_ACTION, "create-drop")
+                    .setProperty(HBM2DDL_AUTO, "create")
                     .setProperty(SHOW_SQL, true)
                     .setProperty(FORMAT_SQL, true)
                     .setProperty(HIGHLIGHT_SQL, true)
@@ -26,8 +34,17 @@ public class HibernateUtil {
         }
     }
 
+    public static Session getSession() {
+        return sessionFactory.openSession();
+    }
+
     public static Session getCurrentSession() {
-        return sessionFactory.getCurrentSession();
+
+        var session = (Session) Proxy.newProxyInstance(SessionFactory.class.getClassLoader(), new Class[]{Session.class}, (proxy, method, args1) ->
+                method.invoke(sessionFactory.getCurrentSession(), args1)
+        );
+
+        return session;
     }
 
     public static void closeSessionFactory() {

@@ -3,21 +3,17 @@ package org.example.tennisscoreboard.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="Players")
+@Table(name = "Players")
 public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
 
-    public int getId() {
+    public Long getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -25,6 +21,18 @@ public class Player {
     }
 
     public void setName(String name) {
+        this.name = name;
+    }
+
+    public Player(String name) {
+        this.name = name;
+    }
+
+    public Player() {
+    }
+
+    public Player(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 
