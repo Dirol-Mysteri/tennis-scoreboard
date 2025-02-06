@@ -1,5 +1,3 @@
-// Script for validating player names in the new match form
-
 // Constants for error messages
 const ERROR_EMPTY_NAMES = "Player names cannot be empty! Fill them out.";
 const ERROR_SAME_NAMES = "Player names are equal! They should be different.";
@@ -7,6 +5,8 @@ const ERROR_SAME_NAMES = "Player names are equal! They should be different.";
 // Selectors
 const formElem = document.querySelector("#new-match-form");
 const errorMessageElem = document.querySelector("#new-match-form-error");
+
+// New Match Page
 
 function checkFields() {
     const playerOneName = document.getElementById("playerOne").value;

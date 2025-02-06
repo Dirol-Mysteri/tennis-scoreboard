@@ -2,10 +2,6 @@ package org.example.tennisscoreboard.models;
 
 import jakarta.persistence.*;
 
-import java.util.Objects;
-
-import static jakarta.persistence.FetchType.LAZY;
-
 @Entity
 @Table(name = "Matches")
 public class Match {
@@ -13,75 +9,66 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "Player1", nullable = false)
-    private Player Player1;
+    @ManyToOne
+    @JoinColumn(name = "playerOne_id", nullable = false)
+    private Player playerOne;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "Player2", nullable = false)
-    private Player Player2;
+    @ManyToOne
+    @JoinColumn(name = "playerTwo_id", nullable = false)
+    private Player playerTwo;
 
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "Winner")
-    private Player Winner;
+    @ManyToOne
+    @JoinColumn(name = "winner_id", nullable = false)
+    private Player winner;
 
     public Match() {
     }
 
-    public Match(Long id, Player player1, Player player2, Player winner) {
-        this.id = id;
-        Player1 = player1;
-        Player2 = player2;
-        Winner = winner;
+    public Match(Player playerOne, Player playerTwo, Player winner) {
+        this.playerOne = playerOne;
+        this.playerTwo = playerTwo;
+        this.winner = winner;
     }
 
     public Long getId() {
         return id;
     }
 
-    public Player getPlayer1() {
-        return Player1;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setPlayer1(Player player1) {
-        Player1 = player1;
+    public Player getPlayerOne() {
+        return playerOne;
     }
 
-    public Player getPlayer2() {
-        return Player2;
+    public void setPlayerOne(Player playerOne) {
+        this.playerOne = playerOne;
     }
 
-    public void setPlayer2(Player player2) {
-        Player2 = player2;
+    public Player getPlayerTwo() {
+        return playerTwo;
+    }
+
+    public void setPlayerTwo(Player playerTwo) {
+        this.playerTwo = playerTwo;
     }
 
     public Player getWinner() {
-        return Winner;
+        return winner;
     }
 
     public void setWinner(Player winner) {
-        Winner = winner;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Match match = (Match) o;
-        return id == match.id && Objects.equals(Player1, match.Player1) && Objects.equals(Player2, match.Player2);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, Player1, Player2);
+        this.winner = winner;
     }
 
     @Override
     public String toString() {
         return "Match{" +
                 "id=" + id +
-                ", Player1=" + Player1 +
-                ", Player2=" + Player2 +
-                ", Winner=" + Winner +
+                ", playerOne=" + playerOne +
+                ", playerTwo=" + playerTwo +
+                ", winner=" + winner +
                 '}';
     }
 }

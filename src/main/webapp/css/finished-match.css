@@ -1,0 +1,71 @@
+/*Basic CSS Rules*/
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    color: black;
+    font-weight: 600;
+}
+
+ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 0;
+}
+
+a:hover {
+    background-color: rgba(0, 0, 255, 0.1);
+}
+
+/* Main Page */
+
+#match-score-wrapper {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#match-score-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#match-score-wrapper * a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    margin: 5px;
+    padding: 10px;
+    border: 3px solid black;
+}
+
+#match-score-wrapper .table {
+    width: 30vw;
+    border: 3px solid black;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#match-score-wrapper .table .table-header p {
+    margin: 20px 20px;
+}
+
+#menu {
+    width: 100%;
+}
+
+p.table-text {
+    margin: 20px 20px;
+}

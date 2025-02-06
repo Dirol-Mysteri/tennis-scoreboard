@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/index.css">
 </head>
 
 <body>
@@ -21,7 +21,7 @@
         <h1>Hello To The Tennis Scoreboard App!</h1>
         <ul>
             <a href="/new-match">New Match</a>
-            <a href="/matches">Played Matches</a>
+            <a href="/matches">Finished Matches</a>
         </ul>
     </main>
 

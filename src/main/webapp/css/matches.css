@@ -1,0 +1,83 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    color: black;
+    font-weight: 600;
+}
+
+button {
+    background-color: transparent;
+    font-weight: bold;
+    border: none;
+}
+
+button:hover {
+    background-color: rgba(0, 0, 255, 0.1);
+    cursor: pointer;
+}
+
+/* Finished Matches */
+
+#matches-wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#matches-wrapper .container {
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#matches-wrapper .input-container {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+#matches-wrapper .input-container input {
+    width: 100%;
+    margin-right: 2rem;
+}
+
+#matches-wrapper .input-container .btn-filter {
+    padding: 0.2rem .8rem;
+    font-weight: bold;
+    color: white;
+    border: none;
+    background-color: grey;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#matches-wrapper .container table {
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+    border-collapse: collapse;
+    border: 1px solid #dddddd;
+}
+
+#matches-wrapper .container table th {
+    padding: 0.5rem;
+    font-weight: bold;
+    border: 1px solid #dddddd;
+}
+
+#matches-wrapper .container table td {
+    padding: 0.5rem;
+    border-bottom: 1px solid #dddddd;
+    font-weight: 400;
+}
+
+#matches-wrapper .pagination {
+    margin-top: 1rem;
+}

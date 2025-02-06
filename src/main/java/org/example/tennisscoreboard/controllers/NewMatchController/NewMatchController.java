@@ -8,13 +8,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.tennisscoreboard.commons.Utils;
+import org.example.tennisscoreboard.models.MatchScoreModel;
 import org.example.tennisscoreboard.exceptions.ThisMatchIsAlreadyExistException;
-import org.example.tennisscoreboard.models.CurrentMatch;
 import org.example.tennisscoreboard.services.MatchService;
 
 import java.io.IOException;
 
-import static org.example.tennisscoreboard.commons.Utils.jsonNewMatchRequestHandler;
 
 @WebServlet(name = "NewMatch", value = "/new-match")
 public class NewMatchController extends HttpServlet {
@@ -36,14 +35,15 @@ public class NewMatchController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        MatchRequest formData = jsonNewMatchRequestHandler(req);
+        String jsonFromRequest = Utils.jsonRequestHandler(req);
+        MatchRequest formData = gson.fromJson(jsonFromRequest, MatchRequest.class);
 
         String playerOneName = formData.getPlayerOne();
         String playerTwoName = formData.getPlayerTwo();
 
         try {
-            CurrentMatch currentMatch = matchService.addNewMatch(playerOneName, playerTwoName);
-            String json = gson.toJson(currentMatch);
+            MatchScoreModel matchScoreModel = matchService.addNewMatch(playerOneName, playerTwoName);
+            String json = gson.toJson(matchScoreModel);
             Utils.sendJsonResponse(resp, HttpServletResponse.SC_OK, json);
         } catch (ThisMatchIsAlreadyExistException e) {
             Utils.sendJsonMessageResponse(resp, HttpServletResponse.SC_CONFLICT, e.getMessage());

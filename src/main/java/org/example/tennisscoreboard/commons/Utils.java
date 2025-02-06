@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.tennisscoreboard.controllers.NewMatchController.MatchRequest;
+import org.example.tennisscoreboard.models.MatchScoreModel;
+import org.example.tennisscoreboard.models.Score;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,7 +27,7 @@ public class Utils {
         }
     }
 
-    public static MatchRequest jsonNewMatchRequestHandler(HttpServletRequest request) throws IOException {
+    public static String jsonRequestHandler(HttpServletRequest request) throws IOException {
         StringBuilder sb = new StringBuilder();
         String line;
         try (BufferedReader reader = request.getReader()) {
@@ -35,9 +37,11 @@ public class Utils {
         }
         String jsonString = sb.toString();
 
-        Gson gson = new Gson();
-        MatchRequest matchRequest = gson.fromJson(jsonString, MatchRequest.class);
+        return jsonString;
+    }
 
-        return matchRequest;
+    public static boolean isMatchFinished(MatchScoreModel matchScoreModel) {
+        Score score = matchScoreModel.getScore();
+        return score.getPlayerOneSets() == 2 || score.getPlayerTwoSets() == 2;
     }
 }

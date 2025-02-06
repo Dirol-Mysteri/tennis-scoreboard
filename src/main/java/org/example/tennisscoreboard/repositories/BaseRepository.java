@@ -15,22 +15,6 @@ public abstract class BaseRepository<K extends Serializable, E> implements Repos
         this.entityClass = entityClass;
     }
 
-//    @Override
-//    public E save(E entity) {
-//        try {
-//            Session session = HibernateUtil.getCurrentSession();
-//            session.persist(entity);
-//        } catch (ConstraintViolationException e) {
-//            if (e.getKind() == ConstraintViolationException.ConstraintKind.UNIQUE) {
-//                if (entity instanceof Player) {
-//                    String playerName = ((Player) entity).getName();
-//                    throw new UniqueConstraintException("Player with name " + playerName + " already exists in the database");
-//                }
-//            }
-//        }
-//        return entity;
-//    }
-
     @Override
     public E save(E entity) {
         Session session = HibernateUtil.getCurrentSession();

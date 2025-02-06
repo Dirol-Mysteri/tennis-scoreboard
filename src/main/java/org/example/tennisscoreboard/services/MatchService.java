@@ -1,9 +1,7 @@
 package org.example.tennisscoreboard.services;
 
-import org.example.tennisscoreboard.Game;
 import org.example.tennisscoreboard.commons.HibernateUtil;
-import org.example.tennisscoreboard.exceptions.ThisMatchIsAlreadyExistException;
-import org.example.tennisscoreboard.models.CurrentMatch;
+import org.example.tennisscoreboard.models.MatchScoreModel;
 import org.example.tennisscoreboard.models.Player;
 import org.example.tennisscoreboard.repositories.PlayerRepository;
 import org.hibernate.Session;
@@ -13,12 +11,14 @@ import java.util.Arrays;
 
 public class MatchService {
     private final PlayerRepository playerRepository;
+    private final OngoingMatchesService ongoingMatchesService;
 
     public MatchService() {
         this.playerRepository = new PlayerRepository();
+        this.ongoingMatchesService = OngoingMatchesService.getInstance();
     }
 
-    public CurrentMatch addNewMatch(String playerOneName, String playerTwoName) throws Exception {
+    public MatchScoreModel addNewMatch(String playerOneName, String playerTwoName) throws Exception {
         Player playerOne;
         Player playerTwo;
         Transaction tx = null;
@@ -39,14 +39,10 @@ public class MatchService {
             throw new Exception("Error while adding new match", e);
         }
 
-        CurrentMatch currentMatch = new CurrentMatch(playerOne.getId(), playerTwo.getId());
+        MatchScoreModel matchScoreModel = new MatchScoreModel(playerOne.getId(), playerTwo.getId());
 
-        if (Game.containsMatch(currentMatch)) {
-            throw new ThisMatchIsAlreadyExistException();
-        }
+        ongoingMatchesService.addMatch(matchScoreModel);
 
-        Game.addMatch(currentMatch);
-
-        return currentMatch;
+        return matchScoreModel;
     }
 }
