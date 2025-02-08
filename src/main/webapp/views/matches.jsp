@@ -22,9 +22,9 @@
     <div class="container">
         <h1>Matches</h1>
         <div class="input-container">
-            <input class="input-filter" placeholder="Filter by name" type="text"/>
+            <input class="input-filter" placeholder="Filter by name" type="text" value="${filteredPlayerName}">
             <div>
-                    <button class="btn-filter">Find</button>
+                <button class="btn-filter">Find</button>
             </div>
         </div>
         <table class="table-matches">
@@ -33,21 +33,27 @@
                 <th>Player Two</th>
                 <th>Winner</th>
             </tr>
-            <% for (int i = 0; i < matches.size(); i++) { %>
+            <% for (Match match : matches) { %>
             <tr class="match">
-                <td><%=matches.get(i).getPlayerOne().getName()%>
+                <td><%=match.getPlayerOne().getName()%>
                 </td>
-                <td><%=matches.get(i).getPlayerTwo().getName()%>
+                <td><%=match.getPlayerTwo().getName()%>
                 </td>
-                <td><span class="winner-name-td"><%=matches.get(i).getWinner().getName()%></span></td>
+                <td><span class="winner-name-td"><%=match.getWinner().getName()%></span></td>
             </tr>
             <%}%>
         </table>
-
         <div class="pagination">
         </div>
     </div>
 </main>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/matches.js"></script>
+<script type='application/json' id='data'>
+    {
+      "totalMatchesCount": ${totalMatchesCount},
+      "page": ${page},
+      "filteredPlayerName": "${filteredPlayerName}"
+    }
+</script>
 </body>
 </html>

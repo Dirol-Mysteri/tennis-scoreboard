@@ -81,3 +81,9 @@ button:hover {
 #matches-wrapper .pagination {
     margin-top: 1rem;
 }
+
+button.active {
+    color: rgba(0, 0, 255, 0.9);;
+    font-weight: bold;
+    font-size: 14.5px;
+}

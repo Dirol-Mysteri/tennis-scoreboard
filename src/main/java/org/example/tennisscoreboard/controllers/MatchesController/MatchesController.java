@@ -20,48 +20,33 @@ import java.util.List;
 
 @WebServlet(name = "Matches", value = "/matches")
 public class MatchesController extends HttpServlet {
-    private OngoingMatchesService ongoingMatchesService;
-    private MatchScoreCalculationService matchScoreCalculationService;
     private FinishedMatchesPersistenceService finishedMatchesPersistenceService;
-    private PlayerRepository playerRepository;
-    private PlayerService playerService;
-    private Gson gson;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        this.ongoingMatchesService = OngoingMatchesService.getInstance();
         this.finishedMatchesPersistenceService = new FinishedMatchesPersistenceService();
-        this.matchScoreCalculationService = new MatchScoreCalculationService();
-        this.playerService = new PlayerService();
-        this.playerRepository = new PlayerRepository();
-        this.gson = new Gson();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int pageNumber = req.getParameter("page") == null ? 1 : Integer.parseInt(req.getParameter("page"));
-        String playerName = req.getParameter("filter_by_player_name");
+        String filteredPlayerName = req.getParameter("filter_by_player_name") == null ? "" : req.getParameter("filter_by_player_name");
         try {
-            List<Match> matches = finishedMatchesPersistenceService.getFinishedMatches(pageNumber, playerName);
+            List<Match> matches = finishedMatchesPersistenceService.getFinishedMatches(pageNumber, filteredPlayerName);
+            Long totalMatchesCount = finishedMatchesPersistenceService.getTotalMatchesCount(filteredPlayerName);
             req.setAttribute("matches", matches);
+            req.setAttribute("totalMatchesCount", totalMatchesCount);
+            req.setAttribute("page", pageNumber);
+            req.setAttribute("filteredPlayerName", filteredPlayerName);
             req.getRequestDispatcher("/views/matches.jsp").forward(req, resp);
         } catch (Exception e) {
             Utils.sendJsonMessageResponse(resp, HttpServletResponse.SC_CONFLICT, e.getMessage());
         }
-
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
     }
 }
 
-// Сохрани в гит текущую версию проекта
-// А теперь реализуй пагинацию через JSP, ограничив количество получаемых данных из базы данных для быстродействия приложения.
-// И ещё раз посмотри алгоритм пагинации через JavaScript.
+// В пагинации нужно разобраться с тем, что при клике на страницу у меня прогружается предыдущая страница а не та, что нужна мне.
 
 
 

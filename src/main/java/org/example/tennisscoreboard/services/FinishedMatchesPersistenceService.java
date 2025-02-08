@@ -38,11 +38,11 @@ public class FinishedMatchesPersistenceService {
             Session session = HibernateUtil.getCurrentSession();
             tx = session.beginTransaction();
 
-            if (playerName != null && !playerName.isEmpty()) {
-                finishedMatches = matchRepository.findByPlayerName(playerName).get();
-                return finishedMatches;
-            }
-            finishedMatches = matchRepository.findAll();
+//            if (playerName != null && !playerName.isEmpty()) {
+                finishedMatches = matchRepository.findByPlayerName(pageNumber, playerName).get();
+//                return finishedMatches;
+//            }
+//            finishedMatches = matchRepository.findAll();
             tx.commit();
         } catch (Exception e) {
             if (tx != null) {
@@ -52,4 +52,23 @@ public class FinishedMatchesPersistenceService {
         }
         return finishedMatches;
     }
+
+    public Long getTotalMatchesCount(String playerName) {
+        Long totalMatchesCount;
+        Transaction tx = null;
+        try {
+            Session session = HibernateUtil.getCurrentSession();
+            tx = session.beginTransaction();
+            totalMatchesCount = matchRepository.getTotalMatchesCount(playerName);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw new RuntimeException("Error while retrieving player", e);
+        }
+        return totalMatchesCount;
+    }
+
+
 }

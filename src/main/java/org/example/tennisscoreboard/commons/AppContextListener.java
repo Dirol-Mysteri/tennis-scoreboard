@@ -30,7 +30,7 @@ public class AppContextListener implements ServletContextListener {
             Player player2 = playerService.addNewPlayer(new Player("Player" + j));
             finishedMatchesPersistenceService.saveFinishedMatch(new Match(player1, player2, player1));
         }
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 13; i++) {
             int j = new Random().nextInt();
             Player player1 = playerService.addNewPlayer(new Player("Player3"));
             Player player2 = playerService.addNewPlayer(new Player("Player" + j));

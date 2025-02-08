@@ -1,58 +1,63 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const matchesPerPage = 3;
-    let currentPage = 0;
+document.addEventListener("DOMContentLoaded", function () {
+    const matchesPerPage = 5;
     const filterInput = document.querySelector('.input-filter');
     const filterBtn = document.querySelector(".btn-filter");
 
-    const matches = document.querySelectorAll('.match');
+    const dataElement = document.getElementById('data');
+    if (dataElement) {
+        const jsonData = JSON.parse(dataElement.textContent);
 
-    function showPage(page) {
-        const startIndex = page * matchesPerPage;
-        const endIndex = startIndex + matchesPerPage;
+        window.totalMatchesCount = jsonData.totalMatchesCount;
+        window.page = jsonData.page;
+        window.filteredPlayerName = jsonData.filteredPlayerName;
+    }
 
-        matches.forEach((match, index) => {
-            match.style.display = (index >= startIndex && index < endIndex) ? 'table-row' : 'none';
-        });
+    const page = window.page;
+    const totalMatchesCount = window.totalMatchesCount;
+    const filteredPlayerName = window.filteredPlayerName;
 
+    function showPage() {
         updatePaginationButtons(page);
     }
 
     function updatePaginationButtons(currentPage) {
         const paginationDiv = document.querySelector('.pagination');
-        paginationDiv.innerHTML = ''; // Очищаем предыдущие кнопки
+        paginationDiv.innerHTML = ''; // Clearing previous buttons
 
-        const totalPages = Math.ceil(matches.length / matchesPerPage);
-        const startPage = Math.max(0, currentPage - 1);
-        const endPage = Math.min(totalPages - 1, currentPage + 1);
-
+        const totalPages = Math.ceil(totalMatchesCount / matchesPerPage);
+        const startPage = Math.max(1, currentPage - 1);
+        const endPage = currentPage === 1 ? Math.min(totalPages, currentPage + 2) : Math.min(totalPages, currentPage + 1);
         for (let i = startPage; i <= endPage; i++) {
             const button = document.createElement('button');
-            button.textContent = i + 1;
+            button.textContent = i;
             button.className = (i === currentPage) ? 'active' : '';
             button.addEventListener('click', () => {
                 currentPage = i;
-                showPage(currentPage);
+                const url = `/matches?page=${currentPage}&filter_by_player_name=${encodeURIComponent(filteredPlayerName)}`;
+                redirectToNewPage(url);
             });
             paginationDiv.appendChild(button);
         }
 
-        // Добавляем кнопки "Предыдущая" и "Следующая"
-        if (currentPage > 0) {
+        // Next and Previous Buttons
+        if (currentPage > 1) {
             const prevButton = document.createElement('button');
-            prevButton.textContent = 'Предыдущая';
+            prevButton.textContent = 'Previous';
             prevButton.addEventListener('click', () => {
                 currentPage--;
-                showPage(currentPage);
+                const url = `/matches?page=${currentPage}&filter_by_player_name=${encodeURIComponent(filteredPlayerName)}`;
+                redirectToNewPage(url);
             });
             paginationDiv.prepend(prevButton);
         }
 
-        if (currentPage < totalPages - 1) {
+        if (currentPage < totalPages) {
             const nextButton = document.createElement('button');
-            nextButton.textContent = 'Следующая';
+            nextButton.textContent = 'Next';
             nextButton.addEventListener('click', () => {
                 currentPage++;
-                showPage(currentPage);
+                const url = `/matches?page=${currentPage}&filter_by_player_name=${encodeURIComponent(filteredPlayerName)}`;
+                redirectToNewPage(url);
             });
             paginationDiv.appendChild(nextButton);
         }
@@ -66,6 +71,9 @@ document.addEventListener("DOMContentLoaded", function() {
         if (inputValue) {
             url = `/matches?filter_by_player_name=${encodeURIComponent(inputValue)}`;
             redirectToNewPage(url);
+        } else {
+            url = `/matches?filter_by_player_name=`;
+            redirectToNewPage(url);
         }
     }
 
@@ -75,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     filterBtn.addEventListener("click", handleFilterClick);
 
-    showPage(currentPage);
+    showPage(page);
 });
 
 
