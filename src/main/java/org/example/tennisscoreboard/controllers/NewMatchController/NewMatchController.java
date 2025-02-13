@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.tennisscoreboard.commons.Utils;
-import org.example.tennisscoreboard.models.MatchScoreModel;
 import org.example.tennisscoreboard.exceptions.ThisMatchIsAlreadyExistException;
+import org.example.tennisscoreboard.models.MatchScoreModel;
 import org.example.tennisscoreboard.services.MatchService;
 
 import java.io.IOException;

@@ -3,7 +3,6 @@ package org.example.tennisscoreboard.services;
 import org.example.tennisscoreboard.exceptions.ThereIsNoSuchCurrentMatchException;
 import org.example.tennisscoreboard.models.MatchScoreModel;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -11,16 +10,16 @@ import java.util.concurrent.ConcurrentHashMap;
 public class OngoingMatchesService {
 
     private static final OngoingMatchesService INSTANCE = new OngoingMatchesService();
+    private final Map<UUID, MatchScoreModel> currentMatches = new ConcurrentHashMap<>();
+
+    // Private constructor to prevent instantiation
+
+    private OngoingMatchesService() {
+    }
 
     public static OngoingMatchesService getInstance() {
         return INSTANCE;
     }
-
-    // Private constructor to prevent instantiation
-
-    private OngoingMatchesService() {}
-
-    private final Map<UUID, MatchScoreModel> currentMatches = new ConcurrentHashMap<>();
 
     public Map<UUID, MatchScoreModel> getCurrentMatches() {
         return currentMatches;

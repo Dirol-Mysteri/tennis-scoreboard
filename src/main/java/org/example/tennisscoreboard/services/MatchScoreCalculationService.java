@@ -21,14 +21,14 @@ public class MatchScoreCalculationService {
         PlayerScore playerTwoScore = new PlayerScore(score.getPlayerTwoPoints(), score.getPlayerTwoGames(), score.getPlayerTwoSets());
 
         if (isTiebreak(playerOneScore.games, playerTwoScore.games)) {
-            handleTiebreak(player, playerOneScore, playerTwoScore);
+            updateScoreInTiebreakSituation(player, playerOneScore, playerTwoScore);
         } else {
             handleNormalGame(player, playerOneScore, playerTwoScore);
         }
         return new Score(playerOneScore.points, playerTwoScore.points, playerOneScore.games, playerTwoScore.games, playerOneScore.sets, playerTwoScore.sets);
     }
 
-    private void handleTiebreak(Players player, PlayerScore playerOne, PlayerScore playerTwo) {
+    private void updateScoreInTiebreakSituation(Players player, PlayerScore playerOne, PlayerScore playerTwo) {
         if (player == Players.PLAYER_ONE) {
             playerOne.points++;
             if (playerOne.points >= 7 && (playerOne.points - playerTwo.points) >= 2) {

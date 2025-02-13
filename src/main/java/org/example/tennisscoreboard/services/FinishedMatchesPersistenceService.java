@@ -3,6 +3,7 @@ package org.example.tennisscoreboard.services;
 import org.example.tennisscoreboard.commons.HibernateUtil;
 import org.example.tennisscoreboard.models.Match;
 import org.example.tennisscoreboard.repositories.MatchRepository;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -23,7 +24,7 @@ public class FinishedMatchesPersistenceService {
             tx = session.beginTransaction();
             matchRepository.save(finishedMatch);
             tx.commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
@@ -37,12 +38,7 @@ public class FinishedMatchesPersistenceService {
         try {
             Session session = HibernateUtil.getCurrentSession();
             tx = session.beginTransaction();
-
-//            if (playerName != null && !playerName.isEmpty()) {
-                finishedMatches = matchRepository.findByPlayerName(pageNumber, playerName).get();
-//                return finishedMatches;
-//            }
-//            finishedMatches = matchRepository.findAll();
+            finishedMatches = matchRepository.findByPlayerName(pageNumber, playerName).get();
             tx.commit();
         } catch (Exception e) {
             if (tx != null) {

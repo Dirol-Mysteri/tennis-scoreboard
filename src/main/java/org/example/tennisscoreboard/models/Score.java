@@ -46,25 +46,6 @@ public class Score {
         return playerTwoSets;
     }
 
-//    public void addPointToPlayer(Players player) {
-//        if (player == Players.PLAYER_ONE) {
-//            playerOnePoints += 15;
-//
-//            if (playerOnePoints >= 40 && (playerOnePoints - playerTwoPoints) >= 30) {
-//                playerOnePoints = 0;
-//                playerTwoPoints = 0;
-//                playerOneGames++;
-//                if (playerOneGames >= 6 && (playerOneGames - playerTwoGames) >= 2) {
-//                    playerOneSets ++;
-//                    if (playerOneSets >= 2 && (playerOneSets - playerTwoSets) >= 2) {}
-//                }
-//            }
-//
-//        } else if (player == Players.PLAYER_TWO) {
-//            playerTwoPoints += 15;
-//        }
-//    }
-
     @Override
     public String toString() {
         return "Score{" +

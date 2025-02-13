@@ -1,6 +1,5 @@
 package org.example.tennisscoreboard.controllers.MatchesController;
 
-import com.google.gson.Gson;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,11 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.tennisscoreboard.commons.Utils;
 import org.example.tennisscoreboard.models.Match;
-import org.example.tennisscoreboard.repositories.PlayerRepository;
 import org.example.tennisscoreboard.services.FinishedMatchesPersistenceService;
-import org.example.tennisscoreboard.services.MatchScoreCalculationService;
-import org.example.tennisscoreboard.services.OngoingMatchesService;
-import org.example.tennisscoreboard.services.PlayerService;
 
 import java.io.IOException;
 import java.util.List;
@@ -41,12 +36,10 @@ public class MatchesController extends HttpServlet {
             req.setAttribute("filteredPlayerName", filteredPlayerName);
             req.getRequestDispatcher("/views/matches.jsp").forward(req, resp);
         } catch (Exception e) {
-            Utils.sendJsonMessageResponse(resp, HttpServletResponse.SC_CONFLICT, e.getMessage());
+            Utils.sendJsonMessageResponse(resp, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 }
-
-// В пагинации нужно разобраться с тем, что при клике на страницу у меня прогружается предыдущая страница а не та, что нужна мне.
 
 
 

@@ -20,7 +20,7 @@ public class MatchScoreModel {
         this.matchId = UUID.randomUUID();
         this.playerOneId = playerOneId;
         this.playerTwoId = playerTwoId;
-        this.score = new Score(scorePlayerOne, scorePlayerTwo,0,0,0,0);
+        this.score = new Score(scorePlayerOne, scorePlayerTwo, 0, 0, 0, 0);
     }
 
     public UUID getMatchId() {
@@ -40,6 +40,10 @@ public class MatchScoreModel {
     }
 
     public void updateScore(Score score) {
+        if (score == null) {
+            throw new NullPointerException("Score cannot be null");
+        }
+
         this.score = score;
     }
 

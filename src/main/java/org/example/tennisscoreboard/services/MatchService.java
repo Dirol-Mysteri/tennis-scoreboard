@@ -4,10 +4,9 @@ import org.example.tennisscoreboard.commons.HibernateUtil;
 import org.example.tennisscoreboard.models.MatchScoreModel;
 import org.example.tennisscoreboard.models.Player;
 import org.example.tennisscoreboard.repositories.PlayerRepository;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
-import java.util.Arrays;
 
 public class MatchService {
     private final PlayerRepository playerRepository;
@@ -29,14 +28,12 @@ public class MatchService {
             playerOne = playerRepository.findByName(playerOneName).orElseGet(() -> playerRepository.save(new Player(playerOneName)));
             playerTwo = playerRepository.findByName(playerTwoName).orElseGet(() -> playerRepository.save(new Player(playerTwoName)));
 
-            var players = playerRepository.findAll();
-            System.out.println(Arrays.toString(players.toArray()));
             tx.commit();
-        } catch (Exception e) {
-            if (tx != null) {
+        } catch (HibernateException e) {
+            if (tx != null && tx.isActive()) {
                 tx.rollback();
             }
-            throw new Exception("Error while adding new match", e);
+            throw new RuntimeException("Error while adding new match", e);
         }
 
         MatchScoreModel matchScoreModel = new MatchScoreModel(playerOne.getId(), playerTwo.getId());

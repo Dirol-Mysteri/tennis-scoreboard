@@ -5,7 +5,6 @@ import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 import org.example.tennisscoreboard.models.Match;
 import org.example.tennisscoreboard.models.Player;
-import org.example.tennisscoreboard.repositories.MatchRepository;
 import org.example.tennisscoreboard.services.FinishedMatchesPersistenceService;
 import org.example.tennisscoreboard.services.PlayerService;
 

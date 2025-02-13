@@ -12,7 +12,6 @@ import org.example.tennisscoreboard.models.Match;
 import org.example.tennisscoreboard.models.MatchScoreModel;
 import org.example.tennisscoreboard.models.Player;
 import org.example.tennisscoreboard.models.Score;
-import org.example.tennisscoreboard.repositories.PlayerRepository;
 import org.example.tennisscoreboard.services.FinishedMatchesPersistenceService;
 import org.example.tennisscoreboard.services.MatchScoreCalculationService;
 import org.example.tennisscoreboard.services.OngoingMatchesService;
@@ -26,7 +25,6 @@ public class MatchScoreController extends HttpServlet {
     private OngoingMatchesService ongoingMatchesService;
     private MatchScoreCalculationService matchScoreCalculationService;
     private FinishedMatchesPersistenceService finishedMatchesPersistenceService;
-    private PlayerRepository playerRepository;
     private PlayerService playerService;
     private Gson gson;
 
@@ -37,7 +35,6 @@ public class MatchScoreController extends HttpServlet {
         this.finishedMatchesPersistenceService = new FinishedMatchesPersistenceService();
         this.matchScoreCalculationService = new MatchScoreCalculationService();
         this.playerService = new PlayerService();
-        this.playerRepository = new PlayerRepository();
         this.gson = new Gson();
     }
 
@@ -68,7 +65,9 @@ public class MatchScoreController extends HttpServlet {
             System.out.println("THIS IS FUCKING TEST");
             req.getRequestDispatcher("/views/match-score.jsp").forward(req, resp);
         } catch (Exception e) {
-            e.printStackTrace();
+            Utils.sendJsonMessageResponse(resp,
+                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                    "Internal Server Error");
         }
 
     }
@@ -95,12 +94,9 @@ public class MatchScoreController extends HttpServlet {
             req.setAttribute("playerOneName", playerOneName);
             req.setAttribute("playerTwoName", playerTwoName);
             req.getRequestDispatcher("/views/match-score.jsp").forward(req, resp);
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             Utils.sendJsonMessageResponse(resp, HttpServletResponse.SC_CONFLICT, e.getMessage());
         }
     }
 }
-
-// Нужно поправить вёрстку и, возможно, пересмотреть всю логику контроллеров. Да, ты правильно сделал, что не перенёс всю бизнес-логику
-// в JSP страницы, но, возможно, какую-то часть логики, всё такм, имеет смысл с JavaScript снять и перенести в JSP. Подумай.
 

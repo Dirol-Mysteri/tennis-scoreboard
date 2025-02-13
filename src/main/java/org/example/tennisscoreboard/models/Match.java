@@ -27,7 +27,12 @@ public class Match {
     public Match(Player playerOne, Player playerTwo, Player winner) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
-        this.winner = winner;
+
+        if (winner != null && !winner.equals(playerOne) && !winner.equals(playerTwo)) {
+            throw new IllegalArgumentException("Winner must be either playerOne or playerTwo");
+        } else {
+            this.winner = winner;
+        }
     }
 
     public Long getId() {
@@ -59,8 +64,12 @@ public class Match {
     }
 
     public void setWinner(Player winner) {
+        if (winner != null && !winner.equals(playerOne) && !winner.equals(playerTwo)) {
+            throw new IllegalArgumentException("Winner must be either playerOne or playerTwo");
+        }
         this.winner = winner;
     }
+
 
     @Override
     public String toString() {

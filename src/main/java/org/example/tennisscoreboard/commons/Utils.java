@@ -1,12 +1,9 @@
 package org.example.tennisscoreboard.commons;
 
-import com.google.gson.Gson;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.tennisscoreboard.controllers.NewMatchController.MatchRequest;
 import org.example.tennisscoreboard.models.MatchScoreModel;
 import org.example.tennisscoreboard.models.Score;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;

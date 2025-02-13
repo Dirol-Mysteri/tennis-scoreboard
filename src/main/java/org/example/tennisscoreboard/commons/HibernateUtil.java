@@ -2,6 +2,7 @@ package org.example.tennisscoreboard.commons;
 
 import org.example.tennisscoreboard.models.Match;
 import org.example.tennisscoreboard.models.Player;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -35,11 +36,16 @@ public class HibernateUtil {
     }
 
     public static Session getSession() {
+        if (sessionFactory == null) {
+            throw new IllegalStateException("SessionFactory not initialized");
+        }
         return sessionFactory.openSession();
     }
 
     public static Session getCurrentSession() {
-
+        if (sessionFactory == null) {
+            throw new IllegalStateException("SessionFactory not initialized");
+        }
         var session = (Session) Proxy.newProxyInstance(SessionFactory.class.getClassLoader(), new Class[]{Session.class}, (proxy, method, args1) ->
                 method.invoke(sessionFactory.getCurrentSession(), args1)
         );
@@ -52,7 +58,7 @@ public class HibernateUtil {
             try {
                 sessionFactory.close();
                 sessionFactory = null;
-            } catch (Exception e) {
+            } catch (HibernateException e) {
                 System.err.println("Error closing SessionFactory:" + e.getMessage());
             }
         }

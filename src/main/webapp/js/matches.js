@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function updatePaginationButtons(currentPage) {
+        // Number buttons
         const paginationDiv = document.querySelector('.pagination');
         paginationDiv.innerHTML = ''; // Clearing previous buttons
 

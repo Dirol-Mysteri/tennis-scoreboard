@@ -3,6 +3,7 @@ package org.example.tennisscoreboard.services;
 import org.example.tennisscoreboard.commons.HibernateUtil;
 import org.example.tennisscoreboard.models.Player;
 import org.example.tennisscoreboard.repositories.PlayerRepository;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -21,7 +22,7 @@ public class PlayerService {
             tx = session.beginTransaction();
             playerName = playerRepository.findById(id).get().getName();
             tx.commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
@@ -38,7 +39,7 @@ public class PlayerService {
             tx = session.beginTransaction();
             player = playerRepository.findById(id).get();
             tx.commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
@@ -55,7 +56,7 @@ public class PlayerService {
             tx = session.beginTransaction();
             savedPlayer = playerRepository.save(player);
             tx.commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }

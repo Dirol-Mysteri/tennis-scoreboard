@@ -1,0 +1,69 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    color: black;
+    font-weight: 600;
+}
+
+#wrapper {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Match Score Page */
+
+#match-score-wrapper {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#match-score-wrapper .table {
+    width: 30vw;
+    border: 3px solid black;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#match-score-wrapper .table .column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#match-score-wrapper .table .button-column {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#match-score-wrapper .table .button-column button {
+    margin: 12px 5px;
+}
+
+#match-score-wrapper .table .table-header p {
+    margin: 20px 20px;
+}
+
+#match-score-wrapper .player {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+p.table-text {
+    margin: 20px 20px;
+}
