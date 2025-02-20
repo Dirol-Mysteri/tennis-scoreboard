@@ -6,13 +6,18 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String error = (String) request.getAttribute("errorMessage");
+    String errorMessage = error != null ? error : "HTTP Status 404 – There Is No Such Page";
+
+%>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/index.css">
+    <title>New Match</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/error404.css">
 </head>
 
 <body>
@@ -22,15 +27,11 @@
         <a class="nav-link" href="/matches">Matches</a>
     </nav>
 </header>
-<div id="wrapper">
-    <main id="main">
-        <h1>Hello To The Tennis Scoreboard App!</h1>
-        <ul>
-            <a href="/new-match">New Match</a>
-            <a href="/matches">Finished Matches</a>
-        </ul>
+<div id="error-page-wrapper">
+    <main id="error-page-main">
+        <h1><%= errorMessage%>
+        </h1>
     </main>
-
 </div>
 </body>
 

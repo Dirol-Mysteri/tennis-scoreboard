@@ -18,6 +18,12 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/finished-match.css">
 </head>
 <body>
+<header>
+    <nav class="nav-links">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/matches">Matches</a>
+    </nav>
+</header>
 <div id="match-score-wrapper">
     <main id="match-score-main">
         <div class="table">

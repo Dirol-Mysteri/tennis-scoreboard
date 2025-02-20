@@ -1,6 +1,6 @@
-<%@ page import="org.example.tennisscoreboard.models.MatchScoreModel" %>
 <%@ page import="java.util.UUID" %>
-<%@ page import="org.example.tennisscoreboard.models.Score" %><%--
+<%@ page import="org.example.tennisscoreboard.services.ScoreService.MatchScore" %>
+<%@ page import="org.example.tennisscoreboard.models.*" %><%--
   Created by IntelliJ IDEA.
   User: aliev008
   Date: 25.12.2024
@@ -10,23 +10,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     MatchScoreModel matchScoreModel = (MatchScoreModel) request.getAttribute("currentMatch");
-    Score score = matchScoreModel.getScore();
-    String playerOneName = (String) request.getAttribute("playerOneName");
-    Long playerOneId = matchScoreModel.getPlayerOneId();
-    int playerOnePoints = score.getPlayerOnePoints();
-    int playerOneGames = score.getPlayerOneGames();
-    int playerOneSets = score.getPlayerOneSets();
-    int playerTwoPoints = score.getPlayerTwoPoints();
-    int playerTwoGames = score.getPlayerTwoGames();
-    int playerTwoSets = score.getPlayerTwoSets();
-    String playerTwoName = (String) request.getAttribute("playerTwoName");
-    Long playerTwoId = matchScoreModel.getPlayerTwoId();
+    MatchScore matchScore = matchScoreModel.getMatchScore();
+    String playerOneName = matchScoreModel.getPlayerOne().getName();
+    String playerTwoName = matchScoreModel.getPlayerTwo().getName();
+    PlayerScore playerOneScore = matchScore.getPlayerScore(0);
+    PlayerScore playerTwoScore = matchScore.getPlayerScore(1);
     UUID uuid = matchScoreModel.getMatchId();
-
-    boolean deuce = playerOnePoints == playerTwoPoints;
-    boolean tieBreakMode = playerOneGames == 6 && playerOneGames == playerTwoGames;
-    boolean deuceMode = playerOnePoints >= 40 && playerTwoPoints >= 40;
-    boolean playerOneAdvantage = playerOnePoints > playerTwoPoints;
 %>
 
 <html>
@@ -37,6 +26,12 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/match-score.css">
 </head>
 <body>
+<header>
+    <nav class="nav-links">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/matches">Matches</a>
+    </nav>
+</header>
 <div id="match-score-wrapper">
     <main id="match-score-main">
         <div class="table">
@@ -49,72 +44,32 @@
             </div>
             <div class="column">
                 <p>Sets</p>
-                <p><%=playerOneSets%>
+                <p><%=playerOneScore.getPlayerSets()%>
                 </p>
-                <p><%=playerTwoSets%>
+                <p><%=playerTwoScore.getPlayerSets()%>
                 </p>
             </div>
             <div class="column">
                 <p>Games</p>
-
-                <% if (tieBreakMode) {
-                %>
-                <p>Tiebreak
+                <p><%=playerOneScore.getPlayerGames()%>
                 </p>
-                <p>Tiebreak
+                <p><%=playerTwoScore.getPlayerGames()%>
                 </p>
-                <%
-                } else {
-                %>
-                <p><%=playerOneGames%>
-                </p>
-                <p><%=playerTwoGames%>
-                </p>
-                <%
-                    }
-                %>
             </div>
             <div class="column">
                 <p>Points</p>
-                <%
-                    if (deuceMode) {
-                        if (deuce) {
-                            // deuce output
-                %>
-                <p>deuce</p>
-                <p>deuce</p>
-                <%
-                } else if (playerOneAdvantage) {
-                    // deuce mode output player one advantage
-                %>
-                <p>more</p>
-                <p>less</p>
-                <%
-                } else {
-                    // deuce mode output player two advantage
-                %>
-                <p>less</p>
-                <p>more</p>
-                <%
-                    }
-                } else {
-                    // standard points output
-                %>
-                <p><%= playerOnePoints %>
+                <p><%= playerOneScore.getPlayerPoints()%>
                 </p>
-                <p><%= playerTwoPoints %>
+                <p><%= playerTwoScore.getPlayerPoints()%>
                 </p>
-                <%
-                    }
-                %>
             </div>
 
             <div class="button-column">
                 <button class="score-button" id="player-one-score-btn" onclick="handleScoreAdd(event)"
-                        data-uuid="<%=uuid%>" data-player-id="<%=playerOneId%>">Add Score
+                        data-uuid="<%=uuid%>" data-winner="playerOne">Add Score
                 </button>
                 <button class="score-button" id="player-two-score-btn" onclick="handleScoreAdd(event)"
-                        data-uuid="<%=uuid%>" data-player-id="<%=playerTwoId%>">Add Score
+                        data-uuid="<%=uuid%>" data-winner="playerTwo">Add Score
                 </button>
             </div>
         </div>

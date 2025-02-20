@@ -3,7 +3,8 @@ package org.example.tennisscoreboard.commons;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.tennisscoreboard.models.MatchScoreModel;
-import org.example.tennisscoreboard.models.Score;
+import org.example.tennisscoreboard.services.ScoreService.MatchScore;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,8 +38,13 @@ public class Utils {
         return jsonString;
     }
 
-    public static boolean isMatchFinished(MatchScoreModel matchScoreModel) {
-        Score score = matchScoreModel.getScore();
-        return score.getPlayerOneSets() == 2 || score.getPlayerTwoSets() == 2;
-    }
+//    public static boolean isMatchFinished(MatchScoreModel matchScoreModel) {
+//        Score score = matchScoreModel.getScore();
+//        return score.getPlayerOneSets() == 2 || score.getPlayerTwoSets() == 2;
+//    }
+
+//    public static boolean isMatchFinished(MatchScoreModel matchScoreModel) {
+//        MatchScore matchScore = matchScoreModel.getMatchScore();
+//        return matchScore.getPlayerScore(0).getPlayerSets() == 2 || matchScore.getPlayerScore(1).getPlayerSets() == 2;
+//    }
 }

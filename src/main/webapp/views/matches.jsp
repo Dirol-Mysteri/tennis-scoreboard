@@ -18,6 +18,12 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/matches.css">
 </head>
 <body>
+<header>
+    <nav class="nav-links">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/matches">Matches</a>
+    </nav>
+</header>
 <main id="matches-wrapper">
     <div class="container">
         <h1>Matches</h1>
@@ -31,15 +37,25 @@
             <tr>
                 <th>Player One</th>
                 <th>Player Two</th>
-                <th>Winner</th>
             </tr>
-            <% for (Match match : matches) { %>
+            <% for (Match match : matches) {
+
+                String playerOne;
+                String playerTwo;
+
+                if (match.getWinner().equals(match.getPlayerOne())) {
+                    playerOne = match.getPlayerOne().getName() + " \uD83C\uDFC6";
+                    playerTwo = match.getPlayerTwo().getName();
+                } else {
+                    playerOne = match.getPlayerOne().getName();
+                    playerTwo = match.getPlayerTwo().getName() + " \uD83C\uDFC6";
+                }
+            %>
             <tr class="match">
-                <td><%=match.getPlayerOne().getName()%>
+                <td><%=playerOne%>
                 </td>
-                <td><%=match.getPlayerTwo().getName()%>
+                <td><%=playerTwo%>
                 </td>
-                <td><span class="winner-name-td"><%=match.getWinner().getName()%></span></td>
             </tr>
             <%}%>
         </table>

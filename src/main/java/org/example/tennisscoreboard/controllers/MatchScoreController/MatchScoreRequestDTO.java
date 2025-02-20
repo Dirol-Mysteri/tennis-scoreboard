@@ -1,4 +1,4 @@
 package org.example.tennisscoreboard.controllers.MatchScoreController;
 
-public record MatchScoreRequestDTO(Long winnerID) {
+public record MatchScoreRequestDTO(String winner) {
 }

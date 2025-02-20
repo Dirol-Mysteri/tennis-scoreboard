@@ -22,7 +22,7 @@ public class FinishedMatchesPersistenceService {
         try {
             Session session = HibernateUtil.getCurrentSession();
             tx = session.beginTransaction();
-            matchRepository.save(finishedMatch);
+            matchRepository.update(finishedMatch);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) {

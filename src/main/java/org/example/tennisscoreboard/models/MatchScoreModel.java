@@ -1,71 +1,67 @@
 package org.example.tennisscoreboard.models;
 
+import org.example.tennisscoreboard.services.ScoreService.MatchScore;
+
 import java.util.Objects;
 import java.util.UUID;
 
 public class MatchScoreModel {
     private UUID matchId;
-    private Long playerOneId;
-    private Long playerTwoId;
-    private Score score;
+    private Player playerOne;
+    private Player playerTwo;
+    private MatchScore matchScore;
 
-    public MatchScoreModel(Long playerOneId, Long playerTwoId) {
+    public MatchScoreModel(Player playerOne, Player playerTwo) {
         this.matchId = UUID.randomUUID();
-        this.playerOneId = playerOneId;
-        this.playerTwoId = playerTwoId;
-        this.score = new Score();
-    }
-
-    public MatchScoreModel(Long playerOneId, Long playerTwoId, int scorePlayerOne, int scorePlayerTwo) {
-        this.matchId = UUID.randomUUID();
-        this.playerOneId = playerOneId;
-        this.playerTwoId = playerTwoId;
-        this.score = new Score(scorePlayerOne, scorePlayerTwo, 0, 0, 0, 0);
+        this.playerOne = playerOne;
+        this.playerTwo = playerTwo;
+        this.matchScore = new MatchScore();
     }
 
     public UUID getMatchId() {
         return matchId;
     }
 
-    public Long getPlayerOneId() {
-        return playerOneId;
+    public Player getPlayerOne() {
+        return playerOne;
     }
 
-    public Long getPlayerTwoId() {
-        return playerTwoId;
+    public Player getPlayerTwo() {
+        return playerTwo;
     }
 
-    public Score getScore() {
-        return score;
+    public MatchScore getMatchScore() {
+        return matchScore;
     }
 
-    public void updateScore(Score score) {
-        if (score == null) {
+    public void updateScore(MatchScore matchScore) {
+        if (matchScore == null) {
             throw new NullPointerException("Score cannot be null");
         }
 
-        this.score = score;
+        this.matchScore = matchScore;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         MatchScoreModel that = (MatchScoreModel) o;
-        return Objects.equals(matchId, that.matchId) && Objects.equals(playerOneId, that.playerOneId) && Objects.equals(playerTwoId, that.playerTwoId);
+        return Objects.equals(matchId, that.matchId) && Objects.equals(playerOne, that.playerOne) && Objects.equals(playerTwo, that.playerTwo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(matchId, playerOneId, playerTwoId);
+        return Objects.hash(matchId, playerOne, playerTwo);
     }
+
 
     @Override
     public String toString() {
-        return "MatchScoreModel{" +
+        return "MatchScoreModel_new{" +
                 "matchId=" + matchId +
-                ", playerOneId=" + playerOneId +
-                ", playerTwoId=" + playerTwoId +
-                ", score=" + score +
+                ", playerOne=" + playerOne +
+                ", playerTwo=" + playerTwo +
+                ", matchScore=" + matchScore +
                 '}';
     }
 }

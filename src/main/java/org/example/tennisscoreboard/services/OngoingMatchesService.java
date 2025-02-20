@@ -29,6 +29,10 @@ public class OngoingMatchesService {
         currentMatches.put(matchScoreModel.getMatchId(), matchScoreModel);
     }
 
+//    public void deleteMatch(MatchScoreModel matchScoreModel) {
+//        currentMatches.remove(matchScoreModel.getMatchId(), matchScoreModel);
+//    }
+
     public void deleteMatch(MatchScoreModel matchScoreModel) {
         currentMatches.remove(matchScoreModel.getMatchId(), matchScoreModel);
     }
@@ -39,10 +43,6 @@ public class OngoingMatchesService {
         } else {
             throw new ThereIsNoSuchCurrentMatchException();
         }
-    }
-
-    public boolean containsMatch(MatchScoreModel matchScoreModel) {
-        return currentMatches.containsKey(matchScoreModel.getMatchId());
     }
 
     public MatchScoreModel getCurrentMatchScore(UUID uuid) {

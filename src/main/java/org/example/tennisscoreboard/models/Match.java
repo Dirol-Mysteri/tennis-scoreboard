@@ -9,16 +9,16 @@ public class Match {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "playerOne_id", nullable = false)
     private Player playerOne;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "playerTwo_id", nullable = false)
     private Player playerTwo;
 
-    @ManyToOne
-    @JoinColumn(name = "winner_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "winner_id")
     private Player winner;
 
     public Match() {

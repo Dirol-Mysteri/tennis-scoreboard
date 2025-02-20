@@ -14,7 +14,6 @@ import org.example.tennisscoreboard.services.MatchService;
 
 import java.io.IOException;
 
-
 @WebServlet(name = "NewMatch", value = "/new-match")
 public class NewMatchController extends HttpServlet {
     private MatchService matchService;

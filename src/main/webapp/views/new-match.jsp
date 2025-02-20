@@ -16,10 +16,16 @@
 </head>
 
 <body>
+<header>
+    <nav class="nav-links">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/matches">Matches</a>
+    </nav>
+</header>
 <div id="new-match-wrapper">
-    <header id="new-match-header">
+    <div id="new-match-header">
         <h1>New Match</h1>
-    </header>
+    </div>
     <main id="new-match-main">
         <form id="new-match-form" method="POST">
             <p id="new-match-form-error" style="color: red; display: none">Sample error message</p>

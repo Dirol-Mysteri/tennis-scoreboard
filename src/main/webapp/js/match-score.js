@@ -1,10 +1,10 @@
 async function handleScoreAdd(event) {
     const element = event.target;
     const matchUUID = element.getAttribute("data-uuid");
-    const playerId = element.getAttribute("data-player-id");
+    const player = element.getAttribute("data-winner");
 
     const data = {
-        "winnerID": playerId
+        "winner": player
     };
     // Dynamic url
     const url = `${window.location.origin}/match-score?uuid=` + matchUUID;
