@@ -6,6 +6,10 @@ const ERROR_SAME_NAMES = "Player names are equal! They should be different.";
 const formElem = document.querySelector("#new-match-form");
 const errorMessageElem = document.querySelector("#new-match-form-error");
 
+// Получаем контекст приложения
+const appContext = window.location.pathname.split('/')[1];
+const baseUrl = `${window.location.origin}/${appContext}`;
+
 // New Match Page
 
 function checkFields() {
@@ -28,7 +32,8 @@ async function handleSubmit() {
     const formData = new FormData(formElem);
     const data = Object.fromEntries(formData);
     // Dynamic url
-    const url = `${window.location.origin}/new-match`;
+    const url = `${baseUrl}/new-match`;
+    console.log({url});
     try {
         const response = await fetch(url, {
             method: 'POST',
@@ -44,7 +49,7 @@ async function handleSubmit() {
         }
 
         if (response.status === 200) {
-            let url = "/match-score?uuid=" + jsonResponse.matchId;
+            let url = `${baseUrl}/match-score?uuid=` + jsonResponse.matchId;
             redirectToNewPage(url);
         }
 

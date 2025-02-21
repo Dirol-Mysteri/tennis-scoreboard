@@ -20,8 +20,8 @@
 <body>
 <header>
     <nav class="nav-links">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/matches">Matches</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/matches">Matches</a>
     </nav>
 </header>
 <div id="match-score-wrapper">
@@ -32,8 +32,8 @@
         </div>
         <div id="menu">
             <ul>
-                <a href="/new-match">New Match</a>
-                <a href="/matches">Played Matches</a>
+                <a href="${pageContext.request.contextPath}/new-match">New Match</a>
+                <a href="${pageContext.request.contextPath}/matches">Played Matches</a>
             </ul>
         </div>
     </main>

@@ -7,7 +7,7 @@ public class RegularPointScore extends PointScore {
     }
 
     @Override
-    State pointWon(int playerNumber) {
+    public State pointWon(int playerNumber) {
         RegularGamePlayerPoints playerScore = RegularGamePlayerPoints.findByPointCode(getPlayerScore(playerNumber));
         // 0:X, 15:X or 30:X
         if (playerScore.ordinal() <= RegularGamePlayerPoints.THIRTY.ordinal()) {

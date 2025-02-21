@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const filterInput = document.querySelector('.input-filter');
     const filterBtn = document.querySelector(".btn-filter");
 
+    const appContext = window.location.pathname.split('/')[1];
+    const baseUrl = `${window.location.origin}/${appContext}`;
+
     const dataElement = document.getElementById('data');
     if (dataElement) {
         const jsonData = JSON.parse(dataElement.textContent);
@@ -34,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
             button.className = (i === currentPage) ? 'active' : '';
             button.addEventListener('click', () => {
                 currentPage = i;
-                const url = `/matches?page=${currentPage}&filter_by_player_name=${encodeURIComponent(filteredPlayerName)}`;
+                const url = `${baseUrl}/matches?page=${currentPage}&filter_by_player_name=${encodeURIComponent(filteredPlayerName)}`;
                 redirectToNewPage(url);
             });
             paginationDiv.appendChild(button);
@@ -46,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
             prevButton.textContent = 'Previous';
             prevButton.addEventListener('click', () => {
                 currentPage--;
-                const url = `/matches?page=${currentPage}&filter_by_player_name=${encodeURIComponent(filteredPlayerName)}`;
+                const url = `${baseUrl}/matches?page=${currentPage}&filter_by_player_name=${encodeURIComponent(filteredPlayerName)}`;
                 redirectToNewPage(url);
             });
             paginationDiv.prepend(prevButton);
@@ -57,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
             nextButton.textContent = 'Next';
             nextButton.addEventListener('click', () => {
                 currentPage++;
-                const url = `/matches?page=${currentPage}&filter_by_player_name=${encodeURIComponent(filteredPlayerName)}`;
+                const url = `${baseUrl}/matches?page=${currentPage}&filter_by_player_name=${encodeURIComponent(filteredPlayerName)}`;
                 redirectToNewPage(url);
             });
             paginationDiv.appendChild(nextButton);
@@ -70,10 +73,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const inputValue = filterInput.value.trim();
 
         if (inputValue) {
-            url = `/matches?filter_by_player_name=${encodeURIComponent(inputValue)}`;
+            url = `${baseUrl}/matches?filter_by_player_name=${encodeURIComponent(inputValue)}`;
             redirectToNewPage(url);
         } else {
-            url = `/matches?filter_by_player_name=`;
+            url = `${baseUrl}/matches?filter_by_player_name=`;
             redirectToNewPage(url);
         }
     }

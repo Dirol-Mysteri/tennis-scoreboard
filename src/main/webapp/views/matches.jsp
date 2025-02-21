@@ -20,8 +20,8 @@
 <body>
 <header>
     <nav class="nav-links">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/matches">Matches</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/matches">Matches</a>
     </nav>
 </header>
 <main id="matches-wrapper">

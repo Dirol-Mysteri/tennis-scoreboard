@@ -18,16 +18,16 @@
 <body>
 <header>
     <nav class="nav-links">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/matches">Matches</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
+        <a class="nav-link" href="${pageContext.request.contextPath}/matches">Matches</a>
     </nav>
 </header>
 <div id="wrapper">
     <main id="main">
         <h1>Hello To The Tennis Scoreboard App!</h1>
         <ul>
-            <a href="/new-match">New Match</a>
-            <a href="/matches">Finished Matches</a>
+            <a href="${pageContext.request.contextPath}/new-match">New Match</a>
+            <a href="${pageContext.request.contextPath}/matches">Finished Matches</a>
         </ul>
     </main>
 

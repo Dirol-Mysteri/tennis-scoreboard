@@ -1,3 +1,6 @@
+const appContext = window.location.pathname.split('/')[1];
+const baseUrl = `${window.location.origin}/${appContext}`;
+
 async function handleScoreAdd(event) {
     const element = event.target;
     const matchUUID = element.getAttribute("data-uuid");
@@ -7,7 +10,7 @@ async function handleScoreAdd(event) {
         "winnerID": playerId
     };
     // Dynamic url
-    const url = `${window.location.origin}/match-score?uuid=` + matchUUID;
+    const url = `${baseUrl}/match-score?uuid=` + matchUUID;
     try {
         const response = await fetch(url, {
             method: 'POST',

@@ -1,75 +1,71 @@
 package service;
 
-import static org.assertj.core.api.Assertions.*;
-
-import org.example.tennisscoreboard.enums.Players;
-import org.example.tennisscoreboard.models.Score;
-import org.example.tennisscoreboard.services.MatchScoreCalculationService;
+import org.example.tennisscoreboard.services.ScoreService.GameScore;
+import org.example.tennisscoreboard.services.ScoreService.RegularGamePlayerPoints;
+import org.example.tennisscoreboard.services.ScoreService.RegularPointScore;
+import org.example.tennisscoreboard.services.ScoreService.State;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 class MatchScoreCalculationServiceTest {
-    private MatchScoreCalculationService matchScoreCalculationService;
+//    private GameScore gameScore;
 
     @BeforeEach
     void setUp() {
-        matchScoreCalculationService = new MatchScoreCalculationService();
     }
 
-//    @Test
-//    void testDeuceMode() {
-////        Given
-//        Score score = new Score(40, 40, 0, 0, 0, 0);
-//
-////        When
-//        Score newScore = matchScoreCalculationService.addPointToPlayer(Players.PLAYER_ONE, score);
-//
-////        Then
-//        assertThat(newScore)
-//                .extracting(Score::getPlayerOneSets, Score::getPlayerTwoSets)
-//                .containsExactly(0, 0);
-//    }
-//
-//    @Test
-//    void TestGameWin() {
-////        Given
-//        Score score = new Score(40, 0, 0, 0, 0, 0);
-//
-////        When
-//        Score newScore = matchScoreCalculationService.addPointToPlayer(Players.PLAYER_ONE, score);
-//
-////        Then
-//        assertThat(newScore)
-//                .extracting(Score::getPlayerOneGames, Score::getPlayerTwoGames)
-//                .containsExactly(1, 0);
-//    }
-//
-//    @Test
-//    void TestTiebreakStart() {
-////        Given
-//        Score score = new Score(0, 0, 6, 6, 0, 0);
-//
-////        When
-//        Score newScore = matchScoreCalculationService.addPointToPlayer(Players.PLAYER_ONE, score);
-//
-////        Then
-//        assertThat(newScore)
-//                .extracting(Score::getPlayerOnePoints, Score::getPlayerTwoPoints)
-//                .containsExactly(1, 0);
-//    }
-//
-//    @Test
-//    void TestTiebreakEnd() {
-////        Given
-//        Score score = new Score(7, 6, 6, 6, 0, 0);
-//
-////        When
-//        Score newScore = matchScoreCalculationService.addPointToPlayer(Players.PLAYER_ONE, score);
-//
-////        Then
-//        assertThat(newScore)
-//                .extracting(Score::getPlayerOneSets, Score::getPlayerTwoSets, Score::getPlayerTwoGames, Score::getPlayerOneGames, Score::getPlayerOnePoints, Score::getPlayerTwoPoints)
-//                .containsExactly(1, 0, 0, 0, 0, 0);
-//    }
+    @Test
+    void testDeuceMode() {
+//        Given
+        RegularPointScore pointScore = new RegularPointScore();
+        pointScore.setPlayerScore(0, RegularGamePlayerPoints.FORTY.getPointCode());
+        pointScore.setPlayerScore(1, RegularGamePlayerPoints.FORTY.getPointCode());
 
+//        When
+        pointScore.pointWon(0);
+
+//        Then
+        assertThat(pointScore.getPlayerScore(0)).isEqualTo(RegularGamePlayerPoints.ADVANTAGE.getPointCode());
+
+//        When
+        State state = pointScore.pointWon(0);
+
+//        Then
+        assertThat(state).isEqualTo(State.PLAYER_ONE_WON);
+
+    }
+
+    @Test
+    void testGameWin() {
+//        Given
+        RegularPointScore pointScore = new RegularPointScore();
+        State state = null;
+//        When
+        for (int i = 0; i < 4; i++) {
+            state = pointScore.pointWon(0);
+        }
+
+//        Then
+        assertThat(state).isEqualTo(State.PLAYER_ONE_WON);
+    }
+
+    @Test
+    void testTiebreak() {
+//        Given
+        GameScore gameScore = new GameScore();
+        gameScore.setPlayerScore(0, 5);
+        gameScore.setPlayerScore(1, 6);
+        State state = null;
+
+//        When
+        for (int i = 0; i < 5; i++) {
+            state = gameScore.pointWon(0);
+        }
+
+//        Then
+        assertThat(state).isEqualTo(State.ONGOING);
+        assertThat(gameScore.getPointScore().getPlayerScore(0)).isEqualTo("1");
+    }
 }
